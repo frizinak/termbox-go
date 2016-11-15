@@ -90,6 +90,10 @@ func Init() error {
 					if err == syscall.EAGAIN || err == syscall.EWOULDBLOCK {
 						break
 					}
+					if n < 0 {
+						break
+					}
+
 					select {
 					case input_comm <- input_event{buf[:n], err}:
 						ie := <-input_comm
